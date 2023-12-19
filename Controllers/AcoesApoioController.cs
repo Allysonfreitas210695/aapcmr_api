@@ -4,29 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using api_aapcmr.Dto;
 using api_aapcmr.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_aapcmr.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
-    public class PacienteController : ControllerBase
+    public class AcoesApoioController : ControllerBase
     {
-        private readonly IPacienteService _service;
-        public PacienteController(IPacienteService service)
+        private readonly IAcoesApoioService _service;
+        public AcoesApoioController(IAcoesApoioService service)
         {
             _service = service;
         }
         
         [HttpGet]
-        [Route("{pacienteId}")]
-        public async Task<IActionResult> GetListPaciente(long pacienteId)
+        [Route("{acaoApoioId}")]
+        public async Task<IActionResult> GetListPaciente(long acaoApoioId)
         {
             try
             {
-                return Ok(await _service.GetItemPaciente(pacienteId));
+                return Ok(await _service.GetItemAcoesApoio(acaoApoioId));
             }
             catch (Exception ex)
             {
@@ -35,12 +33,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetListPaciente()
+        public async Task<IActionResult> GetListAcoesApoio()
         {
             try
             {
-                return Ok(await _service.GetListPacientes());
+                return Ok(await _service.GetListAcoesApoios());
             }
             catch (Exception ex)
             {
@@ -49,11 +46,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertPaciente([FromBody] PacienteDto model)
+        public async Task<IActionResult> InsertAcoesApoio([FromBody] AcoesApoioDto model)
         {
             try
             {
-                return Ok(await _service.InsertPaciente(model));
+                return Ok(await _service.InsertAcoesApoio(model));
             }
             catch (Exception ex)
             {
@@ -62,11 +59,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePaciente([FromBody] PacienteDto model)
+        public async Task<IActionResult> UpdateAcoesApoio([FromBody] AcoesApoioDto model)
         {
             try
             {
-                await _service.UpdatePaciente(model);
+                await _service.UpdateAcoesApoio(model);
                 return NoContent();
             }
             catch (Exception ex)
@@ -76,12 +73,12 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpDelete]
-        [Route("{pacienteId}")]
-        public async Task<IActionResult> DeletePaciente(long pacienteId)
+        [Route("{acaoApoioId}")]
+        public async Task<IActionResult> DeleteAcoesApoio(long acaoApoioId)
         {
             try
             {
-                await _service.DeletePaciente(pacienteId);
+                await _service.DeleteAcoesApoio(acaoApoioId);
                 return NoContent();
             }
             catch (Exception ex)

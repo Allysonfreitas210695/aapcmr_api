@@ -8,6 +8,7 @@ namespace api_aapcmr.Config
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<PerfilUsuario> PerfilUsuarios { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<AcoesApoio> AcoesApoios { get; set; }
         public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
 
@@ -18,6 +19,7 @@ namespace api_aapcmr.Config
             Usuario.ConfiguraModelo(modelBuilder);
             PerfilUsuario.ConfiguraModelo(modelBuilder);
             Paciente.ConfiguraModelo(modelBuilder);
+            AcoesApoio.ConfiguraModelo(modelBuilder);
         }
     }
 }

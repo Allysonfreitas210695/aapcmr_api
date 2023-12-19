@@ -50,6 +50,7 @@ namespace api_aapcmr.Services
                                             RG = z.RG,
                                             StatusCivil = z.StatusCivil
                                         })
+                                        .OrderBy(x => x.Nome)
                                         .AsNoTracking()
                                         .ToListAsync();
             }
