@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api_aapcmr.Config;
 
@@ -10,9 +11,11 @@ using api_aapcmr.Config;
 namespace api_aapcmr.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20231219131722_UpdateColumnTablePaciente")]
+    partial class UpdateColumnTablePaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -43,32 +46,6 @@ namespace api_aapcmr.Migrations
                     b.ToTable("AcoesApoios", (string)null);
                 });
 
-            modelBuilder.Entity("api_aapcmr.Repository.MovimentacaoGasto", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataAtualizacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MovimentacaoGastos", (string)null);
-                });
-
             modelBuilder.Entity("api_aapcmr.Repository.Paciente", b =>
                 {
                     b.Property<long>("Id")
@@ -89,9 +66,6 @@ namespace api_aapcmr.Migrations
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("CestaBasica")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Cidade")
                         .HasMaxLength(40)

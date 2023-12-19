@@ -55,6 +55,7 @@ builder.Services.AddScoped<IAutenticanteService, AutenticanteService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
 builder.Services.AddScoped<IAcoesApoioService, AcoesApoioService>();
+builder.Services.AddScoped<IMovimentacaoGastoService, MovimentacaoGastoService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
