@@ -1,32 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api_aapcmr.Dto;
 using api_aapcmr.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_aapcmr.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
-    public class PacienteController : ControllerBase
+    public class AcaoApoioSemanalController : ControllerBase
     {
-        private readonly IPacienteService _service;
-        public PacienteController(IPacienteService service)
+        private readonly IAcaoApoioSemanalService _service;
+        public AcaoApoioSemanalController(IAcaoApoioSemanalService service)
         {
             _service = service;
         }
-        
+
         [HttpGet]
-        [Route("{pacienteId}")]
-        public async Task<IActionResult> GetItemPaciente(long pacienteId)
+        [Route("{acaoApoioSemanalId}")]
+        public async Task<IActionResult> GetItemAcaoApoioSemanal(long acaoApoioSemanalId)
         {
             try
             {
-                return Ok(await _service.GetItemPaciente(pacienteId));
+                return Ok(await _service.GetItemAcaoApoioSemanal(acaoApoioSemanalId));
             }
             catch (Exception ex)
             {
@@ -35,12 +29,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetListPaciente()
+        public async Task<IActionResult> GetListAcaoApoioSemanals()
         {
             try
             {
-                return Ok(await _service.GetListPacientes());
+                return Ok(await _service.GetListAcaoApoioSemanals());
             }
             catch (Exception ex)
             {
@@ -49,11 +42,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertPaciente([FromBody] PacienteDto model)
+        public async Task<IActionResult> InsertAcaoApoioSemanal([FromBody] AcaoApoioSemanalDto model)
         {
             try
             {
-                return Ok(await _service.InsertPaciente(model));
+                return Ok(await _service.InsertAcaoApoioSemanal(model));
             }
             catch (Exception ex)
             {
@@ -62,11 +55,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePaciente([FromBody] PacienteDto model)
+        public async Task<IActionResult> UpdateAcaoApoioSemanal([FromBody] AcaoApoioSemanalDto model)
         {
             try
             {
-                await _service.UpdatePaciente(model);
+                await _service.UpdateAcaoApoioSemanal(model);
                 return NoContent();
             }
             catch (Exception ex)
@@ -76,12 +69,12 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpDelete]
-        [Route("{pacienteId}")]
-        public async Task<IActionResult> DeletePaciente(long pacienteId)
+        [Route("{acaoApoioSemanalId}")]
+        public async Task<IActionResult> DeleteAcaoApoioSemanal(long acaoApoioSemanalId)
         {
             try
             {
-                await _service.DeletePaciente(pacienteId);
+                await _service.DeleteAcaoApoioSemanal(acaoApoioSemanalId);
                 return NoContent();
             }
             catch (Exception ex)

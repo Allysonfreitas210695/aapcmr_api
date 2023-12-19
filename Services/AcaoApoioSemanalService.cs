@@ -10,20 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aapcmr.Services
 {
-    public class AcoesApoioService : IAcoesApoioService
+    public class AcaoApoioSemanalService : IAcaoApoioSemanalService
     {
         private readonly ApiContext _dbContext;
-
-        public AcoesApoioService(ApiContext context)
+        public AcaoApoioSemanalService(ApiContext dbContext)
         {
-            _dbContext = context;
+            _dbContext = dbContext;
         }
 
-        public async Task<AcoesApoio> GetItemAcoesApoio(long id)
+        public async Task<AcaoApoioSemanal> GetItemAcaoApoioSemanal(long id)
         {
             try
             {
-                return await _dbContext.AcoesApoios.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
+                return await _dbContext.AcaoApoioSemanais.Where(x => x.Id == id).Include(x => x.AcoesApoio).AsNoTracking().FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -31,11 +30,11 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task<List<AcoesApoio>> GetListAcoesApoios()
+        public async Task<List<AcaoApoioSemanal>> GetListAcaoApoioSemanals()
         {
             try
             {
-                return await _dbContext.AcoesApoios.AsNoTracking().ToListAsync();
+                return await _dbContext.AcaoApoioSemanais.Include(x => x.AcoesApoio).AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {
@@ -43,25 +42,26 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task<AcoesApoio> InsertAcoesApoio(AcoesApoioDto model)
+        public async Task<AcaoApoioSemanal> InsertAcaoApoioSemanal(AcaoApoioSemanalDto model)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
 
-                    var _acoesApoio = new AcoesApoio()
+                    var _acaoApoioSemanal = new AcaoApoioSemanal()
                     {
                         Descricao = model.Descricao,
+                        AcoesApoioId = model.AcoesApoioId,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
                     };
 
-                    await _dbContext.AddAsync(_acoesApoio);
+                    await _dbContext.AddAsync(_acaoApoioSemanal);
                     await _dbContext.SaveChangesAsync();
 
                     await transaction.CommitAsync();
-                    return await GetItemAcoesApoio(_acoesApoio.Id);
+                    return await GetItemAcaoApoioSemanal(_acaoApoioSemanal.Id);
                 }
                 catch (Exception ex)
                 {
@@ -71,19 +71,26 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task UpdateAcoesApoio(AcoesApoioDto model)
+        public async Task UpdateAcaoApoioSemanal(AcaoApoioSemanalDto model)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var _acaoApoio = await _dbContext.AcoesApoios.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    var _acaoApoioSemanal = await _dbContext.AcaoApoioSemanais.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
 
-                    if (_acaoApoio == null)
+                    if (_acaoApoioSemanal == null)
+                        throw new ArgumentException("Ação de apoio semanal não encontrado.");
+
+                    if (model.AcoesApoioId == 0)
                         throw new ArgumentException("Ação de apoio não encontrado.");
 
-                    _acaoApoio.Descricao = model.Descricao;
-                    _acaoApoio.DataAtualizacao = DateTime.Now;
+                    _acaoApoioSemanal.Descricao = model.Descricao;
+                    _acaoApoioSemanal.DataInicial = model.DataInicial;
+                    _acaoApoioSemanal.DataFinal = model.DataFinal;
+                    _acaoApoioSemanal.AcoesApoioId = model.AcoesApoioId;
+                    _acaoApoioSemanal.DataAtualizacao = DateTime.Now;
+
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
@@ -95,17 +102,17 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task DeleteAcoesApoio(long id)
+        public async Task DeleteAcaoApoioSemanal(long id)
         {
-           using (var transaction = _dbContext.Database.BeginTransaction())
+             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var _acaoApoio = await _dbContext.AcoesApoios.Where(x => x.Id == id).FirstOrDefaultAsync();
-                    if (_acaoApoio == null)
-                        throw new ArgumentException("Paciente não encontrado");
+                    var _acaoApoioSemanal = await _dbContext.AcaoApoioSemanais.Where(x => x.Id == id).FirstOrDefaultAsync();
+                    if (_acaoApoioSemanal == null)
+                        throw new ArgumentException("Ação semanal não encontrado.");
 
-                    _dbContext.Remove(_acaoApoio);
+                    _dbContext.Remove(_acaoApoioSemanal);
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
@@ -116,5 +123,6 @@ namespace api_aapcmr.Services
                 }
             }
         }
+
     }
 }
