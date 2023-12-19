@@ -48,11 +48,14 @@ namespace api_aapcmr.Services
             {
                 try
                 {
-
+                    if (model.AcoesApoioId == 0)
+                        throw new ArgumentException("Ação de apoio não encontrado.");
+                    
                     var _acaoApoioSemanal = new AcaoApoioSemanal()
                     {
-                        Descricao = model.Descricao,
                         AcoesApoioId = model.AcoesApoioId,
+                        DataFinal = model.DataFinal,
+                        DataInicial = model.DataInicial,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
                     };
@@ -85,7 +88,7 @@ namespace api_aapcmr.Services
                     if (model.AcoesApoioId == 0)
                         throw new ArgumentException("Ação de apoio não encontrado.");
 
-                    _acaoApoioSemanal.Descricao = model.Descricao;
+
                     _acaoApoioSemanal.DataInicial = model.DataInicial;
                     _acaoApoioSemanal.DataFinal = model.DataFinal;
                     _acaoApoioSemanal.AcoesApoioId = model.AcoesApoioId;

@@ -9,7 +9,6 @@ namespace api_aapcmr.Repository
     public class AcaoApoioSemanal
     {
          public long Id { get; set; }
-        public string Descricao { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
         public DateTime DataCriacao { get; set; }
@@ -23,7 +22,6 @@ namespace api_aapcmr.Repository
             {
                 etd.HasKey(c => c.Id);
                 etd.Property(c => c.Id).ValueGeneratedOnAdd();
-                etd.Property(c => c.Descricao).HasMaxLength(200).IsRequired();
                 etd.Property(c => c.DataInicial).HasColumnType("datetime");
                 etd.Property(c => c.DataFinal).HasColumnType("datetime");
                 etd.Property(c => c.DataCriacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
