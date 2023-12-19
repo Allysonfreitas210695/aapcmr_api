@@ -12,7 +12,7 @@ namespace api_aapcmr.Dto
         public string StatusCivil { get; set; }
         public string Naturalidade { get; set; }
         public DateTime DataNascimento { get; set; }
-        public string RG { get; set; }
+        public string SUSNumero { get; set; }
         public string CPF { get; set; }
         public string Cidade { get; set; }
         public long Numero { get; set; }
@@ -22,16 +22,17 @@ namespace api_aapcmr.Dto
         public string Logradouro { get; set; }
         public string Complemento { get; set; }
         public long UsuarioId { get; set; }
+        public bool CestaBasica { get; set; }
     }
 
-     public class PacienteListDto
+    public class PacienteListDto
     {
         public long Id { get; set; }
         public string Nome { get; set; }
         public string StatusCivil { get; set; }
         public string Naturalidade { get; set; }
         public string DataNascimento { get; set; }
-        public string RG { get; set; }
+        public string SUSNumero { get; set; }
         public string CPF { get; set; }
         public string Endereco { get; set; }
     }

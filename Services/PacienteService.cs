@@ -47,7 +47,7 @@ namespace api_aapcmr.Services
                                             DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
                                             Endereco = $"{z.Bairro}, {z.Cep}, {z.Cidade} - {z.Numero}",
                                             Naturalidade = z.Naturalidade,
-                                            RG = z.RG,
+                                            SUSNumero = z.SUSNumero,
                                             StatusCivil = z.StatusCivil
                                         })
                                         .OrderBy(x => x.Nome)
@@ -69,9 +69,6 @@ namespace api_aapcmr.Services
                     if (await _dbContext.Pacientes.Where(x => x.CPF == model.CPF).AnyAsync())
                         throw new ArgumentException("Já existe um usuário com esse CPF.");
 
-                    if (await _dbContext.Pacientes.Where(x => x.RG == model.RG).AnyAsync())
-                        throw new ArgumentException("Já existe um usuário com esse RG.");
-
                     var _paciente = new Paciente()
                     {
                         Nome = model.Nome,
@@ -83,10 +80,11 @@ namespace api_aapcmr.Services
                         Logradouro = model.Logradouro,
                         Naturalidade = model.Naturalidade,
                         Numero = model.Numero,
-                        RG = model.RG,
+                        SUSNumero = model.SUSNumero,
                         Cidade = model.Cidade,
                         StatusCivil = model.StatusCivil,
                         UF = model.UF,
+                        CestaBasica =  model.CestaBasica,
                         UsuarioId = model.UsuarioId,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
@@ -127,10 +125,11 @@ namespace api_aapcmr.Services
                     _paciente.Logradouro = model.Logradouro;
                     _paciente.Naturalidade = model.Naturalidade;
                     _paciente.Numero = model.Numero;
-                    _paciente.RG = model.RG;
+                    _paciente.SUSNumero = model.SUSNumero;
                     _paciente.StatusCivil = model.StatusCivil;
                     _paciente.UF = model.UF;
                     _paciente.UsuarioId = model.UsuarioId;
+                    _paciente.CestaBasica = model.CestaBasica;
 
                     _paciente.DataAtualizacao = DateTime.Now;
 

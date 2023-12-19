@@ -64,6 +64,9 @@ namespace api_aapcmr.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("CestaBasica")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Cidade")
                         .HasMaxLength(40)
                         .HasColumnType("TEXT");
@@ -102,7 +105,7 @@ namespace api_aapcmr.Migrations
                     b.Property<long>("Numero")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RG")
+                    b.Property<string>("SUSNumero")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("TEXT");

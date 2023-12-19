@@ -13,7 +13,7 @@ namespace api_aapcmr.Repository
         public string StatusCivil { get; set; }
         public string Naturalidade { get; set; }
         public DateTime DataNascimento { get; set; }
-        public string RG { get; set; }
+        public string SUSNumero { get; set; }
         public string CPF { get; set; }
         public long Numero { get; set; }
         public string Bairro { get; set; }
@@ -26,6 +26,7 @@ namespace api_aapcmr.Repository
         public Usuario Usuario { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool CestaBasica { get; set; }
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {
@@ -37,7 +38,7 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.StatusCivil).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.Naturalidade).HasMaxLength(40).IsRequired();
                 etd.Property(c => c.DataNascimento).HasColumnType("datetime").IsRequired();
-                etd.Property(c => c.RG).HasMaxLength(15).IsRequired();
+                etd.Property(c => c.SUSNumero).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.CPF).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.Numero).IsRequired();
                 etd.Property(c => c.Bairro).HasMaxLength(80).IsRequired();
