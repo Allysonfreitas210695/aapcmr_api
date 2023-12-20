@@ -15,19 +15,14 @@ namespace api_aapcmr.Repository
         public DateTime DataNascimento { get; set; }
         public string SUSNumero { get; set; }
         public string CPF { get; set; }
-        public long Numero { get; set; }
-        public string Bairro { get; set; }
-        public string UF { get; set; }
-        public string Cidade { get; set;}
-        public string Cep { get; set; }
-        public string Logradouro { get; set; }
-        public string Complemento { get; set; }
         public long UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public bool CestaBasica { get; set; }
         public List<TratamentoPaciente> TratamentoPacientes { get; set; }
+        public long? SituacaoHabitacionalId { get; set; }
+        public SituacaoHabitacional SituacaoHabitacional { get; set; }
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {
@@ -41,17 +36,11 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.DataNascimento).HasColumnType("datetime").IsRequired();
                 etd.Property(c => c.SUSNumero).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.CPF).HasMaxLength(15).IsRequired();
-                etd.Property(c => c.Numero).IsRequired();
-                etd.Property(c => c.Bairro).HasMaxLength(80).IsRequired();
-                etd.Property(c => c.UF).HasMaxLength(2).IsRequired();
-                etd.Property(c => c.Cep).HasMaxLength(8).IsRequired();
-                etd.Property(c => c.Logradouro).HasMaxLength(8);
-                etd.Property(c => c.Complemento).HasMaxLength(8);
-                etd.Property(c => c.Cidade).HasMaxLength(40);
                 etd.Property(c => c.DataCriacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 etd.Property(c => c.DataAtualizacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 //fazer o relacioanmento
                 etd.HasOne(c => c.Usuario).WithMany(u => u.Pacientes).HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.SetNull);
+                etd.HasOne(c => c.SituacaoHabitacional).WithOne(sh => sh.Paciente).HasForeignKey<Paciente>(c => c.SituacaoHabitacionalId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Paciente>().ToTable("Pacientes");

@@ -25,6 +25,7 @@ namespace api_aapcmr.Services
                                         .Where(x => x.Id == id)
                                         .Include(x => x.Usuario)
                                         .Include(x => x.TratamentoPacientes)
+                                        .Include(x => x.SituacaoHabitacional)
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync();
             }
@@ -46,7 +47,6 @@ namespace api_aapcmr.Services
                                             Nome = z.Nome,
                                             CPF = z.CPF,
                                             DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
-                                            Endereco = $"{z.Bairro}, {z.Cep}, {z.Cidade} - {z.Numero}",
                                             Naturalidade = z.Naturalidade,
                                             SUSNumero = z.SUSNumero,
                                             StatusCivil = z.StatusCivil
@@ -73,18 +73,11 @@ namespace api_aapcmr.Services
                     var _paciente = new Paciente()
                     {
                         Nome = model.Nome,
-                        Bairro = model.Bairro,
-                        Cep = model.Cep,
-                        Complemento = model.Complemento,
                         CPF = model.CPF,
                         DataNascimento = model.DataNascimento.Date,
-                        Logradouro = model.Logradouro,
                         Naturalidade = model.Naturalidade,
-                        Numero = model.Numero,
                         SUSNumero = model.SUSNumero,
-                        Cidade = model.Cidade,
                         StatusCivil = model.StatusCivil,
-                        UF = model.UF,
                         CestaBasica =  model.CestaBasica,
                         UsuarioId = model.UsuarioId,
                         DataAtualizacao = DateTime.Now,
@@ -117,18 +110,11 @@ namespace api_aapcmr.Services
                         throw new ArgumentException("Paciente não encontrado.");
 
                     _paciente.Nome = model.Nome;
-                    _paciente.Cidade = model.Cidade;
-                    _paciente.Bairro = model.Bairro;
-                    _paciente.Cep = model.Cep;
-                    _paciente.Complemento = model.Complemento;
                     _paciente.CPF = model.CPF;
                     _paciente.DataNascimento = model.DataNascimento;
-                    _paciente.Logradouro = model.Logradouro;
                     _paciente.Naturalidade = model.Naturalidade;
-                    _paciente.Numero = model.Numero;
                     _paciente.SUSNumero = model.SUSNumero;
                     _paciente.StatusCivil = model.StatusCivil;
-                    _paciente.UF = model.UF;
                     _paciente.UsuarioId = model.UsuarioId;
                     _paciente.CestaBasica = model.CestaBasica;
 
@@ -154,6 +140,9 @@ namespace api_aapcmr.Services
                     var _paciente = await _dbContext.Pacientes.Where(x => x.Id == id).FirstOrDefaultAsync();
                     if (_paciente == null)
                         throw new ArgumentException("Paciente não encontrado");
+
+                    _dbContext.RemoveRange(_dbContext.TratamentoPacientes.Where(x => x.PacienteId == _paciente.Id).ToList());
+                    await _dbContext.SaveChangesAsync();
 
                     _dbContext.Remove(_paciente);
                     await _dbContext.SaveChangesAsync();

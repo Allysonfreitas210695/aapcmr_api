@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api_aapcmr.Config;
 
@@ -10,9 +11,11 @@ using api_aapcmr.Config;
 namespace api_aapcmr.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20231220142537_NewTableSituacaoHabitacional")]
+    partial class NewTableSituacaoHabitacional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -117,7 +120,7 @@ namespace api_aapcmr.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("SituacaoHabitacionalId")
+                    b.Property<long>("SituacaoHabitacionalId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StatusCivil")
@@ -167,45 +170,30 @@ namespace api_aapcmr.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bairro")
-                        .IsRequired()
-                        .HasMaxLength(80)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Casa")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Cep")
-                        .IsRequired()
-                        .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Cidade")
-                        .HasMaxLength(40)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Complemento")
-                        .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataAtualizacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataCriacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Logradouro")
-                        .HasMaxLength(8)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Moradia")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Numero")
@@ -215,18 +203,14 @@ namespace api_aapcmr.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Transporte")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UF")
-                        .IsRequired()
-                        .HasMaxLength(2)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SituacaoHabitacionais", (string)null);
+                    b.ToTable("SituacaoHabitacional");
                 });
 
             modelBuilder.Entity("api_aapcmr.Repository.TipoGasto", b =>
@@ -354,7 +338,8 @@ namespace api_aapcmr.Migrations
                     b.HasOne("api_aapcmr.Repository.SituacaoHabitacional", "SituacaoHabitacional")
                         .WithOne("Paciente")
                         .HasForeignKey("api_aapcmr.Repository.Paciente", "SituacaoHabitacionalId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("api_aapcmr.Repository.Usuario", "Usuario")
                         .WithMany("Pacientes")
