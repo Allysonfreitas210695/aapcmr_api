@@ -42,12 +42,14 @@ namespace api_aapcmr.Services
             {
                 return await _dbContext.Pacientes
                                         .Include(x => x.Usuario)
+                                        .Include(x => x.SituacaoHabitacional)
                                         .Select(z => new PacienteListDto()
                                         {
                                             Id = z.Id,
                                             Nome = z.Nome,
                                             CPF = z.CPF,
                                             DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
+                                            Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
                                             Naturalidade = z.Naturalidade,
                                             SUSNumero = z.SUSNumero,
                                             StatusCivil = z.StatusCivil
@@ -71,6 +73,9 @@ namespace api_aapcmr.Services
                     if (await _dbContext.Pacientes.Where(x => x.CPF == model.CPF).AnyAsync())
                         throw new ArgumentException("Já existe um usuário com esse CPF.");
 
+                    if (await _dbContext.Pacientes.Where(x => !string.IsNullOrEmpty(model.SUSNumero) && x.SUSNumero == model.SUSNumero).AnyAsync())
+                        throw new ArgumentException("Já existe um usuário com esse número do SUS.");
+
                     var _paciente = new Paciente()
                     {
                         Nome = model.Nome,
@@ -79,7 +84,7 @@ namespace api_aapcmr.Services
                         Naturalidade = model.Naturalidade,
                         SUSNumero = model.SUSNumero,
                         StatusCivil = model.StatusCivil,
-                        CestaBasica =  model.CestaBasica,
+                        CestaBasica = model.CestaBasica,
                         UsuarioId = model.UsuarioId,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
@@ -105,6 +110,9 @@ namespace api_aapcmr.Services
             {
                 try
                 {
+                    if (await _dbContext.Pacientes.Where(x => x.Id != model.Id && !string.IsNullOrEmpty(model.SUSNumero) && x.SUSNumero == model.SUSNumero).AnyAsync())
+                        throw new ArgumentException("Já existe um usuário com esse némero do SUS.");
+
                     var _paciente = await _dbContext.Pacientes.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
 
                     if (_paciente == null)
@@ -154,6 +162,41 @@ namespace api_aapcmr.Services
                     await transaction.RollbackAsync();
                     throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
                 }
+            }
+        }
+
+        public async Task<List<PacienteListDto>> ConsultaPacientes(FiltroConsultaPacienteDto filtro)
+        {
+            try
+            {
+                return await _dbContext.Pacientes
+                .Where(x => 
+                            (string.IsNullOrEmpty(filtro.Nome) || x.Nome == filtro.Nome) && 
+                            x.CPF == filtro.CPF &&
+                            x.CestaBasica == filtro.CestaBasica &&
+                            (filtro.DataNascimento == null || filtro.DataNascimento.Value.Date == x.DataNascimento.Date) &&
+                            (string.IsNullOrEmpty(filtro.SUSNumero) || filtro.SUSNumero == x.SUSNumero)
+                )
+                .Include(x => x.SituacaoHabitacional)
+                .Select(z => new PacienteListDto()
+                {
+                    Id = z.Id,
+                    CestaBasica = z.CestaBasica ? "SIM" : "NÃO",
+                    CPF = z.CPF,
+                    DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
+                    Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
+                    Naturalidade = z.Naturalidade,
+                    Nome = z.Nome,
+                    StatusCivil = z.StatusCivil,
+                    SUSNumero = z.SUSNumero
+                })
+                .AsNoTracking()
+                .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
             }
         }
     }

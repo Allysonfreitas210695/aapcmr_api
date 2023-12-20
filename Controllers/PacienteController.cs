@@ -61,6 +61,20 @@ namespace api_aapcmr.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("ConsultaPaciente")]
+        public async Task<IActionResult> ConsultaPaciente([FromBody] FiltroConsultaPacienteDto model)
+        {
+            try
+            {
+                return Ok(await _service.ConsultaPacientes(model));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdatePaciente([FromBody] PacienteDto model)
         {

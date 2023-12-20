@@ -7,6 +7,7 @@ namespace api_aapcmr.Interfaces
     {
         Task<Paciente> GetItemPaciente(long id);
         Task<List<PacienteListDto>> GetListPacientes();
+        Task<List<PacienteListDto>> ConsultaPacientes(FiltroConsultaPacienteDto filtro);
         Task UpdatePaciente(PacienteDto model);
         Task<Paciente> InsertPaciente(PacienteDto model);
         Task DeletePaciente(long id);
