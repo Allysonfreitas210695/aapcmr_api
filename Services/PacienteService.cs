@@ -26,6 +26,7 @@ namespace api_aapcmr.Services
                                         .Include(x => x.Usuario)
                                         .Include(x => x.TratamentoPacientes)
                                         .Include(x => x.SituacaoHabitacional)
+                                        .Include(x => x.ComposicaoFamiliares)
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync();
             }

@@ -23,6 +23,7 @@ namespace api_aapcmr.Repository
         public List<TratamentoPaciente> TratamentoPacientes { get; set; }
         public long? SituacaoHabitacionalId { get; set; }
         public SituacaoHabitacional SituacaoHabitacional { get; set; }
+         public List<ComposicaoFamiliar> ComposicaoFamiliares { get; set; }
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {

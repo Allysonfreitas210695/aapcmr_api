@@ -75,6 +75,48 @@ namespace api_aapcmr.Migrations
                     b.ToTable("AcoesApoios", (string)null);
                 });
 
+            modelBuilder.Entity("api_aapcmr.Repository.ComposicaoFamiliar", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataAtualizacao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("IdadeFamiliar")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NomeFamiliar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("PacienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Renda")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("VinculoFamiliar")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("ComposicaoFamilias", (string)null);
+                });
+
             modelBuilder.Entity("api_aapcmr.Repository.Paciente", b =>
                 {
                     b.Property<long>("Id")
@@ -349,6 +391,17 @@ namespace api_aapcmr.Migrations
                     b.Navigation("AcoesApoio");
                 });
 
+            modelBuilder.Entity("api_aapcmr.Repository.ComposicaoFamiliar", b =>
+                {
+                    b.HasOne("api_aapcmr.Repository.Paciente", "Paciente")
+                        .WithMany("ComposicaoFamiliares")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Paciente");
+                });
+
             modelBuilder.Entity("api_aapcmr.Repository.Paciente", b =>
                 {
                     b.HasOne("api_aapcmr.Repository.SituacaoHabitacional", "SituacaoHabitacional")
@@ -396,6 +449,8 @@ namespace api_aapcmr.Migrations
 
             modelBuilder.Entity("api_aapcmr.Repository.Paciente", b =>
                 {
+                    b.Navigation("ComposicaoFamiliares");
+
                     b.Navigation("TratamentoPacientes");
                 });
 
