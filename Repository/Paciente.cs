@@ -27,6 +27,7 @@ namespace api_aapcmr.Repository
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public bool CestaBasica { get; set; }
+        public List<TratamentoPaciente> TratamentoPacientes { get; set; }
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {

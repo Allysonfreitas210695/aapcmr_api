@@ -11,6 +11,8 @@ namespace api_aapcmr.Config
         public DbSet<AcoesApoio> AcoesApoios { get; set; }
         public DbSet<AcaoApoioSemanal> AcaoApoioSemanais { get; set; }
         public DbSet<MovimentacaoGasto> MovimentacaoGastos { get; set; }
+        public DbSet<TratamentoPaciente> TratamentoPacientes { get; set; }
+        
         public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
 
@@ -24,6 +26,7 @@ namespace api_aapcmr.Config
             AcoesApoio.ConfiguraModelo(modelBuilder);
             AcaoApoioSemanal.ConfiguraModelo(modelBuilder);
             MovimentacaoGasto.ConfiguraModelo(modelBuilder);
+            TratamentoPaciente.ConfiguraModelo(modelBuilder);
         }
     }
 }
