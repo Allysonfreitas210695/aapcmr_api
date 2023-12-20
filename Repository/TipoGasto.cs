@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_aapcmr.Repository
 {
-    public class MovimentacaoGasto
+    public class TipoGasto
     {
         public long Id { get; set; }
         public string Descricao { get; set; }
@@ -15,7 +15,7 @@ namespace api_aapcmr.Repository
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MovimentacaoGasto>(etd =>
+            modelBuilder.Entity<TipoGasto>(etd =>
             {
                 etd.HasKey(c => c.Id);
                 etd.Property(c => c.Id).ValueGeneratedOnAdd();
@@ -24,7 +24,7 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.DataAtualizacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
             });
 
-            modelBuilder.Entity<MovimentacaoGasto>().ToTable("MovimentacaoGastos");
+            modelBuilder.Entity<TipoGasto>().ToTable("TipoGastos");
         }
     }
 }

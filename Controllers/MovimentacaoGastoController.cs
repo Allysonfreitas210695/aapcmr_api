@@ -14,8 +14,8 @@ namespace api_aapcmr.Controllers
     [Route("api/[controller]")]
     public class MovimentacaoGastoController : ControllerBase
     {
-        private readonly IMovimentacaoGastoService _service;
-        public MovimentacaoGastoController(IMovimentacaoGastoService service)
+        private readonly ITipoGastoService _service;
+        public MovimentacaoGastoController(ITipoGastoService service)
         {
             _service = service;
         }
@@ -49,7 +49,7 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertMovimentacaoGasto([FromBody] MovimentacaoGastoDto model)
+        public async Task<IActionResult> InsertMovimentacaoGasto([FromBody] TipoGastoDto model)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMovimentacaoGasto([FromBody] MovimentacaoGastoDto model)
+        public async Task<IActionResult> UpdateMovimentacaoGasto([FromBody] TipoGastoDto model)
         {
             try
             {
