@@ -12,10 +12,10 @@ namespace api_aapcmr.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class TratamentoPacienteServiceController : ControllerBase
+    public class TratamentoPacienteController : ControllerBase
     {
         private readonly ITratamentoPacienteService _service;
-        public TratamentoPacienteServiceController(ITratamentoPacienteService service)
+        public TratamentoPacienteController(ITratamentoPacienteService service)
         {
             _service = service;
         }

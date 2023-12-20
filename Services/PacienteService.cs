@@ -24,6 +24,7 @@ namespace api_aapcmr.Services
                 return await _dbContext.Pacientes
                                         .Where(x => x.Id == id)
                                         .Include(x => x.Usuario)
+                                        .Include(x => x.TratamentoPacientes)
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync();
             }
