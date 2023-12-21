@@ -2,3 +2,4 @@ Temp/
 bin/
 .vs/
 .vscode/
+obj/
