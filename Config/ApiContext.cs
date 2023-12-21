@@ -14,6 +14,7 @@ namespace api_aapcmr.Config
         public DbSet<TratamentoPaciente> TratamentoPacientes { get; set; }
         public DbSet<SituacaoHabitacional> SituacaoHabitacionais { get; set; }
         public DbSet<ComposicaoFamiliar> ComposicaoFamiliares { get; set; }
+        public DbSet<Doacao> Doacoes { get; set; }
         
         public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
@@ -31,6 +32,7 @@ namespace api_aapcmr.Config
             TratamentoPaciente.ConfiguraModelo(modelBuilder);
             SituacaoHabitacional.ConfiguraModelo(modelBuilder);
             ComposicaoFamiliar.ConfiguraModelo(modelBuilder);
+            Doacao.ConfiguraModelo(modelBuilder);
         }
     }
 }

@@ -60,6 +60,7 @@ builder.Services.AddScoped<IAcaoApoioSemanalService, AcaoApoioSemanalService>();
 builder.Services.AddScoped<ITratamentoPacienteService, TratamentoPacienteService>();
 builder.Services.AddScoped<ISituacaoHabitacionalService, SituacaoHabitacionalService>();
 builder.Services.AddScoped<IComposicaoFamiliarService, ComposicaoFamiliarService>();
+builder.Services.AddScoped<IDoacaoService, DoacaoService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
