@@ -51,7 +51,7 @@ namespace api_aapcmr.Services
                                             DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
                                             Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
                                             Naturalidade = z.Naturalidade,
-                                            SUSNumero = z.SUSNumero,
+                                            Status = z.Status ? "Ativo" : "Inativo",
                                             StatusCivil = z.StatusCivil
                                         })
                                         .OrderBy(x => x.Nome)
@@ -85,6 +85,8 @@ namespace api_aapcmr.Services
                         SUSNumero = model.SUSNumero,
                         StatusCivil = model.StatusCivil,
                         CestaBasica = model.CestaBasica,
+                        Sexo = model.Sexo,
+                        Status = model.Status,
                         UsuarioId = model.UsuarioId,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
@@ -122,6 +124,8 @@ namespace api_aapcmr.Services
                     _paciente.CPF = model.CPF;
                     _paciente.DataNascimento = model.DataNascimento;
                     _paciente.Naturalidade = model.Naturalidade;
+                    _paciente.Sexo = model.Sexo;
+                    _paciente.Status = model.Status;
                     _paciente.SUSNumero = model.SUSNumero;
                     _paciente.StatusCivil = model.StatusCivil;
                     _paciente.UsuarioId = model.UsuarioId;
@@ -170,8 +174,8 @@ namespace api_aapcmr.Services
             try
             {
                 return await _dbContext.Pacientes
-                .Where(x => 
-                            (string.IsNullOrEmpty(filtro.Nome) || x.Nome == filtro.Nome) && 
+                .Where(x =>
+                            (string.IsNullOrEmpty(filtro.Nome) || x.Nome == filtro.Nome) &&
                             x.CPF == filtro.CPF &&
                             x.CestaBasica == filtro.CestaBasica &&
                             (filtro.DataNascimento == null || filtro.DataNascimento.Value.Date == x.DataNascimento.Date) &&
@@ -188,7 +192,7 @@ namespace api_aapcmr.Services
                     Naturalidade = z.Naturalidade,
                     Nome = z.Nome,
                     StatusCivil = z.StatusCivil,
-                    SUSNumero = z.SUSNumero
+                    Status = z.Status ? "Atico" : "Inativo"
                 })
                 .AsNoTracking()
                 .ToListAsync();

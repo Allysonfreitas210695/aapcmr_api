@@ -15,6 +15,8 @@ namespace api_aapcmr.Repository
         public DateTime DataNascimento { get; set; }
         public string SUSNumero { get; set; }
         public string CPF { get; set; }
+        public string Sexo { get; set; }
+        public bool Status { get; set; }
         public long UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public DateTime DataCriacao { get; set; }
@@ -32,6 +34,7 @@ namespace api_aapcmr.Repository
                 etd.HasKey(c => c.Id);
                 etd.Property(c => c.Id).ValueGeneratedOnAdd();
                 etd.Property(c => c.Nome).HasMaxLength(100).IsRequired();
+                etd.Property(c => c.Sexo).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.StatusCivil).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.Naturalidade).HasMaxLength(40).IsRequired();
                 etd.Property(c => c.DataNascimento).HasColumnType("datetime").IsRequired();
