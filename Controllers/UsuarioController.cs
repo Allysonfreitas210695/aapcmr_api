@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api_aapcmr.Dto;
 using api_aapcmr.Interfaces;
 using Microsoft.AspNetCore.Authorization;

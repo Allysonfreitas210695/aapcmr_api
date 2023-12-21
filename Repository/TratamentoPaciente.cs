@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_aapcmr.Repository
@@ -14,6 +10,9 @@ namespace api_aapcmr.Repository
         public string Medico { get; set; }
         public string TipoCirurgia { get; set; }
         public long AnoDiagnostico { get; set; }
+        public string HospitalTratamento { get; set; }
+        public string Observacao { get; set; }
+        public DateTime? DataObservacao { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public long PacienteId { get; set; }
@@ -29,6 +28,9 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.Medico).HasMaxLength(60).IsRequired();
                 etd.Property(c => c.StatusTratamento).HasMaxLength(50).IsRequired();
                 etd.Property(c => c.AnoDiagnostico).IsRequired();
+                etd.Property(c => c.HospitalTratamento).HasMaxLength(120).IsRequired();
+                etd.Property(c => c.Observacao).HasMaxLength(250);
+                etd.Property(c => c.DataObservacao).HasColumnType("datetime");
                 etd.Property(c => c.DataCriacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 etd.Property(c => c.DataAtualizacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 etd.HasOne(c => c.Paciente).WithMany(c => c.TratamentoPacientes).HasForeignKey(c => c.PacienteId).OnDelete(DeleteBehavior.NoAction);
