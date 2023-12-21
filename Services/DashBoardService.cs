@@ -22,10 +22,96 @@ namespace api_aapcmr.Services
             try
             {
                 DashBoardDto _dashBoardDto = new DashBoardDto();
-                _dashBoardDto.DoacoesPendenteDtos = await _dbContext.Doacoes.Where(x => x.StatusDoacao == false).ToListAsync();
-                _dashBoardDto.DoacoesRecebidasDtos = await _dbContext.Doacoes.Where(x => x.StatusDoacao == true).ToListAsync();
-                _dashBoardDto.PacientesAtivoDtos = await _dbContext.Pacientes.Where(x => x.Status == true).ToListAsync();
-                _dashBoardDto.PacientesInativosDtos = await _dbContext.Pacientes.Where(x => x.Status == false).ToListAsync();
+
+                _dashBoardDto.ValorTotalDoacao = await _dbContext.Doacoes
+                                                                        .Where(x => x.StatusDoacao == true &&
+                                                                        ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                            x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                            x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
+                                                                        ))
+                                                                        .AsNoTracking()
+                                                                        .SumAsync(x => x.ValorDoacao);
+
+                _dashBoardDto.ValorTotalMessageiro = await _dbContext.Doacoes
+                                                                        .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Messageiro" &&
+                                                                        ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                            x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                            x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
+                                                                        ))
+                                                                        .AsNoTracking()
+                                                                        .SumAsync(x => x.ValorDoacao);
+
+                _dashBoardDto.ValorTotalDesposito = await _dbContext.Doacoes
+                                                                       .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Deposito" &&
+                                                                       ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                           x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                           x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
+                                                                       ))
+                                                                       .AsNoTracking()
+                                                                       .SumAsync(x => x.ValorDoacao);
+
+                _dashBoardDto.DoacoesPendenteDtos = await _dbContext.Doacoes
+                                                                        .Where(x => x.StatusDoacao == false &&
+                                                                        ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                            x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                            x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
+                                                                        ))
+                                                                        .OrderBy(x => x.NomeDoador).ThenBy(x => x.DataCriacao)
+                                                                        .Select(z => new DoacaoListDto()
+                                                                        {
+                                                                            Id = z.Id,
+                                                                            DataDoacao = z.DataDoacao.ToString("dd/MM/yyyy"),
+                                                                            Endereco = $"{z.Bairro}, {z.Cep}, {z.Cidade} - {z.Numero}",
+                                                                            NomeDoador = z.NomeDoador,
+                                                                            Telefone = z.Telefone,
+                                                                            TipoDeEnvioValor = z.TipoDeEnvioValor,
+                                                                            StatusDoacao = "Pendente",
+                                                                            ValorDoacao = z.ValorDoacao
+                                                                        })
+                                                                        .AsNoTracking()
+                                                                        .ToListAsync();
+
+
+                _dashBoardDto.DoacoesRecebidasDtos = await _dbContext.Doacoes
+                                                                            .Where(x => x.StatusDoacao == true &&
+                                                                            ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                                x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                                x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
+                                                                            ))
+                                                                            .OrderBy(x => x.NomeDoador).ThenBy(x => x.DataCriacao)
+                                                                            .Select(z => new DoacaoListDto()
+                                                                            {
+                                                                                Id = z.Id,
+                                                                                DataDoacao = z.DataDoacao.ToString("dd/MM/yyyy"),
+                                                                                Endereco = $"{z.Bairro}, {z.Cep}, {z.Cidade} - {z.Numero}",
+                                                                                NomeDoador = z.NomeDoador,
+                                                                                Telefone = z.Telefone,
+                                                                                TipoDeEnvioValor = z.TipoDeEnvioValor,
+                                                                                StatusDoacao = "Recebido",
+                                                                                ValorDoacao = z.ValorDoacao
+                                                                            })
+                                                                            .AsNoTracking()
+                                                                            .ToListAsync();
+
+                _dashBoardDto.PacientesAtivoDtos = await _dbContext.Pacientes
+                                                                        .Where(x => x.Status == true &&
+                                                                            ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                                x.DataCriacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                                x.DataCriacao.Date <= filtro.DataFinal.Value.Date)
+                                                                            ))
+                                                                        .OrderBy(x => x.Nome).ThenBy(x => x.DataCriacao)
+                                                                        .AsNoTracking()
+                                                                        .ToListAsync();
+
+                _dashBoardDto.PacientesInativosDtos = await _dbContext.Pacientes
+                                                                        .Where(x => x.Status == false &&
+                                                                            ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
+                                                                                x.DataCriacao.Date >= filtro.DataInicial.Value.Date &&
+                                                                                x.DataCriacao.Date <= filtro.DataFinal.Value.Date)
+                                                                            ))
+                                                                        .OrderBy(x => x.Nome).ThenBy(x => x.DataCriacao)
+                                                                        .AsNoTracking()
+                                                                        .ToListAsync();
                 return _dashBoardDto;
             }
             catch (Exception ex)

@@ -87,20 +87,19 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task UpdateDoacao(DoacaoDto model)
+        public async Task UpdateDoacao(long doacaoId, bool StatusDoacao)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var _doacao = await _dbContext.Doacoes.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    var _doacao = await _dbContext.Doacoes.Where(x => x.Id == doacaoId).FirstOrDefaultAsync();
                     if (_doacao == null)
                         throw new ArgumentException("Doação não encontrada!");
                         
-                    _doacao.StatusDoacao = model.StatusDoacao;
+                    _doacao.StatusDoacao = StatusDoacao;
                     _doacao.DataAtualizacao = DateTime.Now;
 
-                    await _dbContext.AddAsync(_doacao);
                     await _dbContext.SaveChangesAsync();
 
                     await transaction.CommitAsync();

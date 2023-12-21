@@ -45,11 +45,12 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateDoacao([FromBody] DoacaoDto model)
+        [Route("{doacaoId}/{StatusDoacao}")]
+        public async Task<IActionResult> UpdateDoacao(long doacaoId, bool StatusDoacao)
         {
             try
             {
-                await _service.UpdateDoacao(model);
+                await _service.UpdateDoacao(doacaoId, StatusDoacao);
                 return NoContent();
             }
             catch (Exception ex)
