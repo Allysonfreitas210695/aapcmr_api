@@ -19,6 +19,7 @@ namespace api_aapcmr.Services
             _dbContext = dbContext;
             _emailService = emailService;
         }
+
         public async Task<Usuario> GetItemUsuario(long id)
         {
             try
@@ -91,9 +92,9 @@ namespace api_aapcmr.Services
             {
                 var _usuario = await _dbContext.Usuarios.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
 
-                if(_usuario == null)
+                if (_usuario == null)
                     throw new ArgumentException("Usuário não encontrado.");
-                    
+
                 _usuario.Nome = model.Nome;
                 _usuario.Email = model.Email;
                 await _dbContext.SaveChangesAsync();
@@ -142,10 +143,28 @@ namespace api_aapcmr.Services
 
                 Usuario usuario = await _dbContext.Usuarios.Where(x => x.Email == email).FirstOrDefaultAsync();
 
-                if(usuario == null)
+                if (usuario == null)
                     throw new ArgumentException("Não existe nenhum usuário com esse email");
 
                 await _emailService.SendEmailAsync(usuario.Email, "Esqueceu senha", $"<body>Sua senha: {usuario.Senha}</body>");
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public async Task TrocaSenha(long usuarioId, string senhaAntiga, string senhaNova)
+        {
+            try
+            {   
+                var _usuario = await _dbContext.Usuarios.Where(x => x.Id == usuarioId && x.Senha == senhaAntiga).FirstOrDefaultAsync();
+
+                if(_usuario == null)
+                    throw new ArgumentException("Erro na senha antiga.");
+
+                _usuario.Senha = senhaNova;
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

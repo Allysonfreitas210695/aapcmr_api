@@ -15,5 +15,6 @@ namespace api_aapcmr.Interfaces
         Task<Usuario> InsertUsuario(UsuarioDto model);
         Task DeleteUsuario(long id);
         Task EsqueceuSenha(string email);
+        Task TrocaSenha(long usuarioId, string senhaAntiga, string senhaNova);
     }
 }

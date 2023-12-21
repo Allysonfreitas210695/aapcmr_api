@@ -52,9 +52,7 @@ namespace api_aapcmr.Services
                 return new AuthenticateDto()
                 {
                     Id = user.Id,
-                    Email = user.Email,
                     Nome = user.Nome,
-                    Perfil = user.PerfilUsuario.Perfil,
                     Token = _token,
                     Expires = tokenDescriptor.Expires
                 };

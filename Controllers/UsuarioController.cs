@@ -104,5 +104,20 @@ namespace api_aapcmr.Controllers
                 return NotFound(new { Message = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("TrocaSenha/{usuarioId}/{senhaAntiga}/{senhaNova}")]
+        public async Task<IActionResult> TrocaSenha(long usuarioId, string senhaAntiga, string senhaNova)
+        {
+            try
+            {
+                await _service.TrocaSenha(usuarioId, senhaAntiga, senhaNova);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
     }
 }
