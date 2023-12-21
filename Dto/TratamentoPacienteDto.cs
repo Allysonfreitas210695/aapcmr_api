@@ -8,6 +8,9 @@ namespace api_aapcmr.Dto
         public string Medico { get; set; }
         public string TipoCirurgia { get; set; }
         public long AnoDiagnostico { get; set; }
+        public string HospitalTratamento { get; set; }
+        public string Observacao { get; set; }
+        public DateTime? DataObservacao { get; set; }
         public long PacienteId { get; set; }
     }
 }

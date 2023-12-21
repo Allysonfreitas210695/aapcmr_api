@@ -43,7 +43,10 @@ namespace api_aapcmr.Services
                                             AnoDiagnostico = z.AnoDiagnostico,
                                             Medico = z.Medico,
                                             StatusTratamento = z.StatusTratamento,
-                                            TipoCirurgia = z.TipoCirurgia
+                                            TipoCirurgia = z.TipoCirurgia,
+                                            DataObservacao = z.DataObservacao,
+                                            HospitalTratamento = z.HospitalTratamento,
+                                            Observacao = z.Observacao
                                         })
                                         .OrderBy(x => x.Diagnostico)
                                         .AsNoTracking()
@@ -72,8 +75,11 @@ namespace api_aapcmr.Services
                         PacienteId = model.PacienteId,
                         StatusTratamento = model.StatusTratamento,
                         TipoCirurgia = model.TipoCirurgia,
+                        DataObservacao = model.DataObservacao,
+                        HospitalTratamento = model.HospitalTratamento,
+                        Observacao = model.Observacao,
                         DataAtualizacao = DateTime.Now,
-                        DataCriacao = DateTime.Now
+                        DataCriacao = DateTime.Now,
                     };
 
                     await _dbContext.AddAsync(_tratamentoPaciente);
@@ -107,6 +113,9 @@ namespace api_aapcmr.Services
                     _tratamentoPaciente.PacienteId = model.PacienteId;
                     _tratamentoPaciente.StatusTratamento = model.StatusTratamento;
                     _tratamentoPaciente.TipoCirurgia = model.TipoCirurgia;
+                    _tratamentoPaciente.DataObservacao = model.DataObservacao;
+                    _tratamentoPaciente.HospitalTratamento = model.HospitalTratamento;
+                    _tratamentoPaciente.Observacao = model.Observacao;
                     _tratamentoPaciente.DataAtualizacao = DateTime.Now;
 
                     await _dbContext.SaveChangesAsync();

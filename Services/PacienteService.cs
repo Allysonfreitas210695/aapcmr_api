@@ -48,7 +48,11 @@ namespace api_aapcmr.Services
                                             Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
                                             Naturalidade = z.Naturalidade,
                                             Status = z.Status ? "Ativo" : "Inativo",
-                                            StatusCivil = z.StatusCivil
+                                            StatusCivil = z.StatusCivil,
+                                            Sexo = z.Sexo,
+                                            CestaBasica = z.CestaBasica ? "Sim" : "Não",
+                                            Celular = z.Celular,
+                                            TelefoneFixo = z.TelefoneFixo
                                         })
                                         .OrderBy(x => x.Nome)
                                         .AsNoTracking()
@@ -84,6 +88,8 @@ namespace api_aapcmr.Services
                         Sexo = model.Sexo,
                         Status = model.Status,
                         UsuarioId = model.UsuarioId,
+                        Celular = model.Celular,
+                        TelefoneFixo = model.TelefoneFixo,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
                     };
@@ -126,6 +132,8 @@ namespace api_aapcmr.Services
                     _paciente.StatusCivil = model.StatusCivil;
                     _paciente.UsuarioId = model.UsuarioId;
                     _paciente.CestaBasica = model.CestaBasica;
+                    _paciente.Celular = model.Celular;
+                    _paciente.TelefoneFixo = model.TelefoneFixo;
 
                     _paciente.DataAtualizacao = DateTime.Now;
 

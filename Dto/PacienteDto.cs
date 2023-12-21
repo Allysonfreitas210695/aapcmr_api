@@ -11,6 +11,8 @@ namespace api_aapcmr.Dto
         public string Sexo { get; set; }
         public bool Status { get; set; }
         public string CPF { get; set; }
+        public string TelefoneFixo { get; set; }
+        public string Celular { get; set; }
         public long UsuarioId { get; set; }
         public bool CestaBasica { get; set; }
     }
@@ -27,6 +29,8 @@ namespace api_aapcmr.Dto
         public string Status { get; set; }
         public string Endereco { get; set; }
         public string CestaBasica { get; set; }
+        public string TelefoneFixo { get; set; }
+        public string Celular { get; set; }
     }
 
     public class FiltroConsultaPacienteDto
