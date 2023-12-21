@@ -58,5 +58,20 @@ namespace api_aapcmr.Controllers
                 return NotFound(new { Message = ex.Message });
             }
         }
+
+        [HttpDelete]
+        [Route("{doacaoId}")]
+        public async Task<IActionResult> DeleteDoacao(long doacaoId)
+        {
+            try
+            {
+                await _service.DeleteDoacao(doacaoId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
     }
 }

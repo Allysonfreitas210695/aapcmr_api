@@ -96,7 +96,7 @@ namespace api_aapcmr.Services
                     var _doacao = await _dbContext.Doacoes.Where(x => x.Id == doacaoId).FirstOrDefaultAsync();
                     if (_doacao == null)
                         throw new ArgumentException("Doação não encontrada!");
-                        
+
                     _doacao.StatusDoacao = StatusDoacao;
                     _doacao.DataAtualizacao = DateTime.Now;
 
@@ -111,5 +111,30 @@ namespace api_aapcmr.Services
                 }
             }
         }
+
+        public async Task DeleteDoacao(long doacaoId)
+        {
+             using (var transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var _doacao = await _dbContext.Doacoes.Where(x => x.Id == doacaoId).FirstOrDefaultAsync();
+                    if (_doacao == null)
+                        throw new ArgumentException("Doação não encontrada!");
+
+
+                     _dbContext.Remove(_doacao);
+                    await _dbContext.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+                }
+            }
+        }
+
     }
 }
