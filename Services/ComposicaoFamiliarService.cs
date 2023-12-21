@@ -41,6 +41,7 @@ namespace api_aapcmr.Services
             {
                 return await _dbContext.ComposicaoFamiliares
                                         .Include(x => x.Paciente)
+                                        .OrderBy(x => x.NomeFamiliar)
                                         .AsNoTracking()
                                         .ToListAsync();
             }

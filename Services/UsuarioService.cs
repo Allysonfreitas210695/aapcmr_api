@@ -36,7 +36,7 @@ namespace api_aapcmr.Services
         {
             try
             {
-                return await _dbContext.Usuarios.Include(x => x.PerfilUsuario).AsNoTracking().ToListAsync();
+                return await _dbContext.Usuarios.Include(x => x.PerfilUsuario).OrderBy(x => x.Nome).AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {

@@ -49,7 +49,7 @@ namespace api_aapcmr.Services
                                             StatusTratamento = z.StatusTratamento,
                                             TipoCirurgia = z.TipoCirurgia
                                         })
-                                        .OrderBy(x => x.AnoDiagnostico)
+                                        .OrderBy(x => x.Diagnostico)
                                         .AsNoTracking()
                                         .ToListAsync();
             }

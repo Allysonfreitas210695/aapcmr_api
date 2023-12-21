@@ -35,7 +35,7 @@ namespace api_aapcmr.Services
         {
             try
             {
-                return await _dbContext.AcoesApoios.AsNoTracking().ToListAsync();
+                return await _dbContext.AcoesApoios.OrderBy(x => x.Descricao).AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {

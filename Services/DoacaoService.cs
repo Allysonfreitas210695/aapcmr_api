@@ -39,6 +39,8 @@ namespace api_aapcmr.Services
             try
             {
                 return await _dbContext.Doacoes
+                                        .OrderBy(x => x.NomeDoador)
+                                        .ThenBy(x => x.DataDoacao)
                                         .AsNoTracking()
                                         .ToListAsync();
             }
@@ -114,7 +116,7 @@ namespace api_aapcmr.Services
 
         public async Task DeleteDoacao(long doacaoId)
         {
-             using (var transaction = _dbContext.Database.BeginTransaction())
+            using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
@@ -123,7 +125,7 @@ namespace api_aapcmr.Services
                         throw new ArgumentException("Doação não encontrada!");
 
 
-                     _dbContext.Remove(_doacao);
+                    _dbContext.Remove(_doacao);
                     await _dbContext.SaveChangesAsync();
 
                     await transaction.CommitAsync();

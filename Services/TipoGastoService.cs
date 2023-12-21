@@ -34,7 +34,7 @@ namespace api_aapcmr.Services
         {
             try
             {
-                return await _dbContext.TipoGastos.AsNoTracking().ToListAsync();
+                return await _dbContext.TipoGastos.AsNoTracking().OrderBy(x => x.Descricao).ToListAsync();
             }
             catch (Exception ex)
             {
