@@ -126,7 +126,6 @@ namespace api_aapcmr.Services
                                                                             Id = z.Id,
                                                                             Nome = z.Nome,
                                                                             CPF = z.CPF,
-                                                                            DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
                                                                             Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
                                                                             Naturalidade = z.Naturalidade,
                                                                             Status = z.Status ? "Ativo" : "Inativo",
