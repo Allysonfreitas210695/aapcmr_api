@@ -179,17 +179,17 @@ namespace api_aapcmr.Services
             {
                 return await _dbContext.Pacientes
                 .Where(x =>
+                            (filtro.CestaBasica == null || x.CestaBasica == filtro.CestaBasica) &&
                             (string.IsNullOrEmpty(filtro.Nome) || x.Nome == filtro.Nome) &&
-                            x.CPF == filtro.CPF &&
-                            x.CestaBasica == filtro.CestaBasica &&
+                            (string.IsNullOrEmpty(filtro.CPF) || x.CPF == filtro.CPF) &&
                             (filtro.DataNascimento == null || filtro.DataNascimento.Value.Date == x.DataNascimento.Date) &&
-                            (string.IsNullOrEmpty(filtro.SUSNumero) || filtro.SUSNumero == x.SUSNumero)
+                            (string.IsNullOrEmpty(filtro.StatusTratamento) || x.TratamentoPacientes.Any(t => t.StatusTratamento == filtro.StatusTratamento))
                 )
                 .Include(x => x.SituacaoHabitacional)
                 .Select(z => new PacienteListDto()
                 {
                     Id = z.Id,
-                    CestaBasica = z.CestaBasica ? "SIM" : "NÃO",
+                    CestaBasica = z.CestaBasica ? "Sim" : "Não",
                     CPF = z.CPF,
                     DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
                     Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
