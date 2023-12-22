@@ -196,7 +196,7 @@ namespace api_aapcmr.Services
                     Naturalidade = z.Naturalidade,
                     Nome = z.Nome,
                     StatusCivil = z.StatusCivil,
-                    Status = z.Status ? "Atico" : "Inativo"
+                    Status = z.Status ? "Ativo" : "Inativo"
                 })
                 .AsNoTracking()
                 .ToListAsync();
