@@ -110,6 +110,43 @@ namespace api_aapcmr.Services
             }
         }
 
+        public async Task UpdateItemDoacao(DoacaoDto model)
+        {
+            using (var transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var _doacao = await _dbContext.Doacoes.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    if (_doacao == null)
+                        throw new ArgumentException("Doação não encontrada!");
+
+                    _doacao.Bairro = model.Bairro;
+                    _doacao.Cep = model.Cep;
+                    _doacao.NomeDoador = model.NomeDoador;
+                    _doacao.Cidade = model.Cidade;
+                    _doacao.Complemento = model.Complemento;
+                    _doacao.DataDoacao = model.DataDoacao.Date;
+                    _doacao.Logradouro = model.Logradouro;
+                    _doacao.Numero = model.Numero;
+                    _doacao.StatusDoacao = model.StatusDoacao;
+                    _doacao.Telefone = model.Telefone;
+                    _doacao.TipoDeEnvioValor = model.TipoDeEnvioValor;
+                    _doacao.UF = model.UF;
+                    _doacao.ValorDoacao = model.ValorDoacao;
+                    _doacao.DataAtualizacao = DateTime.Now;
+
+                    await _dbContext.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+                }
+            }
+        }
+
         public async Task DeleteDoacao(long doacaoId)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
@@ -133,6 +170,5 @@ namespace api_aapcmr.Services
                 }
             }
         }
-
     }
 }

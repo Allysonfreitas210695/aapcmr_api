@@ -96,6 +96,21 @@ namespace api_aapcmr.Services
                                                                                 x.DataCriacao.Date <= filtro.DataFinal.Value.Date)
                                                                             ))
                                                                         .OrderBy(x => x.Nome).ThenBy(x => x.DataCriacao)
+                                                                        .Select(z => new PacienteListDto()
+                                                                        {
+                                                                            Id = z.Id,
+                                                                            Nome = z.Nome,
+                                                                            CPF = z.CPF,
+                                                                            DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
+                                                                            Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
+                                                                            Naturalidade = z.Naturalidade,
+                                                                            Status = z.Status ? "Ativo" : "Inativo",
+                                                                            StatusCivil = z.StatusCivil,
+                                                                            Sexo = z.Sexo,
+                                                                            CestaBasica = z.CestaBasica ? "Sim" : "Não",
+                                                                            Celular = z.Celular,
+                                                                            TelefoneFixo = z.TelefoneFixo
+                                                                        })
                                                                         .AsNoTracking()
                                                                         .ToListAsync();
 
@@ -106,6 +121,21 @@ namespace api_aapcmr.Services
                                                                                 x.DataCriacao.Date <= filtro.DataFinal.Value.Date)
                                                                             ))
                                                                         .OrderBy(x => x.Nome).ThenBy(x => x.DataCriacao)
+                                                                        .Select(z => new PacienteListDto()
+                                                                        {
+                                                                            Id = z.Id,
+                                                                            Nome = z.Nome,
+                                                                            CPF = z.CPF,
+                                                                            DataNascimento = z.DataNascimento.ToString("dd/MM/yyyy"),
+                                                                            Endereco = z.SituacaoHabitacional != null ? $"{z.SituacaoHabitacional.Bairro}, {z.SituacaoHabitacional.Cep}, {z.SituacaoHabitacional.Cidade} - {z.SituacaoHabitacional.Numero}" : "",
+                                                                            Naturalidade = z.Naturalidade,
+                                                                            Status = z.Status ? "Ativo" : "Inativo",
+                                                                            StatusCivil = z.StatusCivil,
+                                                                            Sexo = z.Sexo,
+                                                                            CestaBasica = z.CestaBasica ? "Sim" : "Não",
+                                                                            Celular = z.Celular,
+                                                                            TelefoneFixo = z.TelefoneFixo
+                                                                        })
                                                                         .AsNoTracking()
                                                                         .ToListAsync();
                 return _dashBoardDto;

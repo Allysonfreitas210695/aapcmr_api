@@ -8,6 +8,7 @@ namespace api_aapcmr.Interfaces
         Task<Doacao> GetItemDoacao(long id);
         Task<List<Doacao>> GetListDoacaos();
         Task UpdateDoacao(long doacaoId, bool StatusDoacao);
+        Task UpdateItemDoacao(DoacaoDto model);
         Task<Doacao> InsertDoacao(DoacaoDto model);
         Task DeleteDoacao(long doacaoId);
     }

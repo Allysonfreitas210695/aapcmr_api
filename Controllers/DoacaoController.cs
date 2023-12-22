@@ -15,6 +15,20 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpGet]
+        [Route("{doacaoId}")]
+        public async Task<IActionResult> GetItemDoacao(long doacaoId)
+        {
+            try
+            {
+                return Ok(await _service.GetItemDoacao(doacaoId));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetListDoacoes()
         {
             try
@@ -47,6 +61,20 @@ namespace api_aapcmr.Controllers
             try
             {
                 await _service.UpdateDoacao(doacaoId, StatusDoacao);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateItemDoacao([FromBody] DoacaoDto model)
+        {
+            try
+            {
+                await _service.UpdateItemDoacao(model);
                 return NoContent();
             }
             catch (Exception ex)

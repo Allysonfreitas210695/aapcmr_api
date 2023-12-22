@@ -15,8 +15,8 @@ namespace api_aapcmr.Dto
         public float ValorTotalMessageiro { get; set; }
         public List<DoacaoListDto> DoacoesPendenteDtos { get; set; }
         public List<DoacaoListDto> DoacoesRecebidasDtos { get; set; }
-        public List<Paciente> PacientesInativosDtos { get; set; }
-        public List<Paciente> PacientesAtivoDtos { get; set; }
+        public List<PacienteListDto> PacientesInativosDtos { get; set; }
+        public List<PacienteListDto> PacientesAtivoDtos { get; set; }
     }
 
     public class DoacaoListDto
@@ -30,4 +30,5 @@ namespace api_aapcmr.Dto
         public string TipoDeEnvioValor { get; set; }
         public string StatusDoacao { get; set; }
     }
+
 }
