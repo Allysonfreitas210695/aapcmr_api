@@ -5,8 +5,7 @@ namespace api_aapcmr.Repository
     public class SituacaoHabitacional
     {
         public long Id { get; set; }
-  
-        public string Transporte { get; set; }
+        public bool Transporte { get; set; }
         public string Moradia { get; set; }
         public string Casa { get; set; }
         public long Numero { get; set; }
@@ -16,6 +15,9 @@ namespace api_aapcmr.Repository
         public string Cep { get; set; }
         public string Logradouro { get; set; }
         public string Complemento { get; set; }
+        public bool Luz { get; set; }
+        public bool Agua { get; set; }
+        public bool InstalacaoSanitaria { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public long PacienteId { get; set; }
@@ -27,7 +29,6 @@ namespace api_aapcmr.Repository
             {
                 etd.HasKey(c => c.Id);
                 etd.Property(c => c.Id).ValueGeneratedOnAdd();
-                etd.Property(c => c.Transporte).HasMaxLength(50).IsRequired();
                 etd.Property(c => c.Casa).HasMaxLength(80).IsRequired();
                 etd.Property(c => c.Moradia).HasMaxLength(80).IsRequired();
                 etd.Property(c => c.Numero).IsRequired();

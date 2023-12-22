@@ -51,6 +51,9 @@ namespace api_aapcmr.Services
                         Moradia = model.Moradia,
                         Numero = model.Numero,
                         Transporte = model.Transporte,
+                        InstalacaoSanitaria = model.InstalacaoSanitaria,
+                        Agua = model.Agua,
+                        Luz = model.Luz,
                         UF = model.UF,
                         PacienteId = model.PacienteId,
                         DataAtualizacao = DateTime.Now,
@@ -94,6 +97,9 @@ namespace api_aapcmr.Services
                     _situacaoHabitacional.Moradia = model.Moradia;
                     _situacaoHabitacional.Numero = model.Numero;
                     _situacaoHabitacional.Transporte = model.Transporte;
+                    _situacaoHabitacional.InstalacaoSanitaria = model.InstalacaoSanitaria;
+                    _situacaoHabitacional.Agua = model.Agua;
+                    _situacaoHabitacional.Luz = model.Luz;
                     _situacaoHabitacional.UF = model.UF;
                     _situacaoHabitacional.PacienteId = model.PacienteId;
                     _situacaoHabitacional.DataAtualizacao = DateTime.Now;

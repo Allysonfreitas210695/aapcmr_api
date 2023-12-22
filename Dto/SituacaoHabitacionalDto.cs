@@ -3,7 +3,7 @@ namespace api_aapcmr.Dto
     public class SituacaoHabitacionalDto
     {
         public long Id { get; set; }
-        public string Transporte { get; set; }
+        public bool Transporte { get; set; }
         public string Moradia { get; set; }
         public string Casa { get; set; }
         public long Numero { get; set; }
@@ -14,5 +14,8 @@ namespace api_aapcmr.Dto
         public string Logradouro { get; set; }
         public string Complemento { get; set; }
         public long PacienteId { get; set; }
+        public bool Luz { get; set; }
+        public bool Agua { get; set; }
+        public bool InstalacaoSanitaria { get; set; }
     }
 }

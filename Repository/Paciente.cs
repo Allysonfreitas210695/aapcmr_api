@@ -24,6 +24,8 @@ namespace api_aapcmr.Repository
         public long? SituacaoHabitacionalId { get; set; }
         public SituacaoHabitacional SituacaoHabitacional { get; set; }
         public List<ComposicaoFamiliar> ComposicaoFamiliares { get; set; }
+        public long? PerfilPacienteId {get; set;}
+        public PerfilPaciente PerfilPaciente {get; set;}
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {
@@ -44,6 +46,7 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.DataAtualizacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 etd.HasOne(c => c.Usuario).WithMany(u => u.Pacientes).HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.SetNull);
                 etd.HasOne(c => c.SituacaoHabitacional).WithOne(sh => sh.Paciente).HasForeignKey<Paciente>(c => c.SituacaoHabitacionalId).OnDelete(DeleteBehavior.NoAction);
+                etd.HasOne(c => c.PerfilPaciente).WithOne(sh => sh.Paciente).HasForeignKey<Paciente>(c => c.PerfilPacienteId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Paciente>().ToTable("Pacientes");

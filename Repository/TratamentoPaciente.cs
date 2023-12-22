@@ -13,6 +13,8 @@ namespace api_aapcmr.Repository
         public string HospitalTratamento { get; set; }
         public string Observacao { get; set; }
         public DateTime? DataObservacao { get; set; }
+        public bool HistoricoFamiliaCancer { get; set; }
+        public bool  UsoEntorpecente { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public long PacienteId { get; set; }

@@ -12,5 +12,7 @@ namespace api_aapcmr.Dto
         public string Observacao { get; set; }
         public DateTime? DataObservacao { get; set; }
         public long PacienteId { get; set; }
+        public bool HistoricoFamiliaCancer { get; set; }
+        public bool  UsoEntorpecente { get; set; }
     }
 }

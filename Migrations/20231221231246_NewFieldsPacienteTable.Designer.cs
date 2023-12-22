@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api_aapcmr.Config;
 
@@ -10,9 +11,11 @@ using api_aapcmr.Config;
 namespace api_aapcmr.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20231221231246_NewFieldsPacienteTable")]
+    partial class NewFieldsPacienteTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -232,9 +235,6 @@ namespace api_aapcmr.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("PerfilPacienteId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("SUSNumero")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -265,62 +265,12 @@ namespace api_aapcmr.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PerfilPacienteId")
-                        .IsUnique();
-
                     b.HasIndex("SituacaoHabitacionalId")
                         .IsUnique();
 
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Pacientes", (string)null);
-                });
-
-            modelBuilder.Entity("api_aapcmr.Repository.PerfilPaciente", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataAtualizacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("NomeMae")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NomePai")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("PacienteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Profissiao")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("ProgramaGoverno")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Religiao")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PerfilPacientes", (string)null);
                 });
 
             modelBuilder.Entity("api_aapcmr.Repository.PerfilUsuario", b =>
@@ -349,9 +299,6 @@ namespace api_aapcmr.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Agua")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bairro")
@@ -387,15 +334,9 @@ namespace api_aapcmr.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<bool>("InstalacaoSanitaria")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Logradouro")
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("Luz")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Moradia")
                         .IsRequired()
@@ -408,8 +349,10 @@ namespace api_aapcmr.Migrations
                     b.Property<long>("PacienteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Transporte")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Transporte")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UF")
                         .IsRequired()
@@ -572,11 +515,6 @@ namespace api_aapcmr.Migrations
 
             modelBuilder.Entity("api_aapcmr.Repository.Paciente", b =>
                 {
-                    b.HasOne("api_aapcmr.Repository.PerfilPaciente", "PerfilPaciente")
-                        .WithOne("Paciente")
-                        .HasForeignKey("api_aapcmr.Repository.Paciente", "PerfilPacienteId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("api_aapcmr.Repository.SituacaoHabitacional", "SituacaoHabitacional")
                         .WithOne("Paciente")
                         .HasForeignKey("api_aapcmr.Repository.Paciente", "SituacaoHabitacionalId")
@@ -587,8 +525,6 @@ namespace api_aapcmr.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
-
-                    b.Navigation("PerfilPaciente");
 
                     b.Navigation("SituacaoHabitacional");
 
@@ -627,11 +563,6 @@ namespace api_aapcmr.Migrations
                     b.Navigation("ComposicaoFamiliares");
 
                     b.Navigation("TratamentoPacientes");
-                });
-
-            modelBuilder.Entity("api_aapcmr.Repository.PerfilPaciente", b =>
-                {
-                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("api_aapcmr.Repository.SituacaoHabitacional", b =>

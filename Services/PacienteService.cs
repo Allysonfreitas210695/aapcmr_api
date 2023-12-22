@@ -23,6 +23,7 @@ namespace api_aapcmr.Services
                                         .Include(x => x.TratamentoPacientes)
                                         .Include(x => x.SituacaoHabitacional)
                                         .Include(x => x.ComposicaoFamiliares)
+                                        .Include(x => x.PerfilPaciente)
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync();
             }
@@ -145,7 +146,6 @@ namespace api_aapcmr.Services
                     await transaction.RollbackAsync();
                     throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
                 }
-
             }
         }
         public async Task DeletePaciente(long id)

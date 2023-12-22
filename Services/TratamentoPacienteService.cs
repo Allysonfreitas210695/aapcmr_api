@@ -78,6 +78,8 @@ namespace api_aapcmr.Services
                         DataObservacao = model.DataObservacao,
                         HospitalTratamento = model.HospitalTratamento,
                         Observacao = model.Observacao,
+                        HistoricoFamiliaCancer = model.HistoricoFamiliaCancer,
+                        UsoEntorpecente = model.UsoEntorpecente,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now,
                     };
@@ -116,6 +118,8 @@ namespace api_aapcmr.Services
                     _tratamentoPaciente.DataObservacao = model.DataObservacao;
                     _tratamentoPaciente.HospitalTratamento = model.HospitalTratamento;
                     _tratamentoPaciente.Observacao = model.Observacao;
+                    _tratamentoPaciente.HistoricoFamiliaCancer = model.HistoricoFamiliaCancer;
+                    _tratamentoPaciente.UsoEntorpecente = model.UsoEntorpecente;
                     _tratamentoPaciente.DataAtualizacao = DateTime.Now;
 
                     await _dbContext.SaveChangesAsync();
