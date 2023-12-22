@@ -16,13 +16,19 @@ namespace api_aapcmr.Dto
         public long TipoGastoId { get; set; }
     }
 
-     public class RelatorioMensalFiltroDto
+     public class RelatorioMovimentacaoFiltroDto
     {
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
     }
 
-    public class RelatorioMensalExcelDto
+     public class RelatorioDoacaoFiltroDto
+    {
+        public DateTime? DataInicial { get; set; }
+        public DateTime? DataFinal { get; set; }
+    }
+
+    public class RelatorioMovimentacaoExcelDto
     {
         public double TotalEntrada { get; set; }
         public double TotalSaida { get; set; }

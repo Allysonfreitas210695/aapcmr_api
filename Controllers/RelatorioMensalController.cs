@@ -86,12 +86,54 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPost]
-        [Route("FiltroRelatorioMensal")]
-        public async Task<IActionResult> FiltroRelatorioMensal([FromBody] RelatorioMensalFiltroDto filtro)
+        [Route("RelatorioMovimentacao")]
+        public async Task<IActionResult> FiltroRelatorioMensal([FromBody] RelatorioMovimentacaoFiltroDto filtro)
         {
             try
             {
-                return Ok(await _service.FiltroRelatorioMensal(filtro));
+                return Ok(await _service.FiltroRelatorioMovimentacao(filtro));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("RelatorioDoacoes")]
+        public async Task<IActionResult> FiltroRelatorioDoacoes([FromBody] RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return Ok(await _service.FiltroRelatorioDoacoes(filtro));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("RelatorioDoacaoDeposito")]
+        public async Task<IActionResult> FiltroRelatorioDoacaoDeposito([FromBody] RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return Ok(await _service.FiltroRelatorioDoacaoDeposito(filtro));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("RelatorioDoacaoMessageiro")]
+        public async Task<IActionResult> FiltroRelatorioDoacaoMessageiro([FromBody] RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return Ok(await _service.FiltroRelatorioDoacaoMessageiro(filtro));
             }
             catch (Exception ex)
             {

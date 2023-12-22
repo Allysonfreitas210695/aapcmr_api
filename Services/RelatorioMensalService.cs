@@ -141,9 +141,9 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task<List<RelatorioMensal>> FiltroRelatorioMensal(RelatorioMensalFiltroDto filtro)
+        public async Task<List<RelatorioMensal>> FiltroRelatorioMovimentacao(RelatorioMovimentacaoFiltroDto filtro)
         {
-             try
+            try
             {
                 return await _dbContext.RelatorioMensais
                                         .Where(x => x.Data.Date >= filtro.DataInicial.Date && x.Data.Date <= filtro.DataFinal.Date)
@@ -151,6 +151,54 @@ namespace api_aapcmr.Services
                                         .OrderByDescending(x => x.Data).ThenBy(x => x.DataCriacao)
                                         .AsNoTracking()
                                         .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public async Task<List<Doacao>> FiltroRelatorioDoacoes(RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return await _dbContext.Doacoes
+                                        .Where(x =>x.StatusDoacao == true && ((filtro.DataInicial == null && filtro.DataFinal == null) || (x.DataDoacao.Date >= filtro.DataInicial.Value.Date && x.DataDoacao.Date <= filtro.DataFinal.Value.Date)))
+                                        .OrderByDescending(x => x.DataDoacao).ThenBy(x => x.DataCriacao)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public async Task<List<Doacao>> FiltroRelatorioDoacaoDeposito(RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return await _dbContext.Doacoes
+                                        .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Depósito" && ((filtro.DataInicial == null && filtro.DataFinal == null) || (x.DataDoacao.Date >= filtro.DataInicial.Value.Date && x.DataDoacao.Date <= filtro.DataFinal.Value.Date)))
+                                        .OrderByDescending(x => x.DataDoacao).ThenBy(x => x.DataCriacao)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+        public async Task<List<Doacao>> FiltroRelatorioDoacaoMessageiro(RelatorioDoacaoFiltroDto filtro)
+        {
+            try
+            {
+                return await _dbContext.Doacoes
+                                       .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Mensageiro" && ((filtro.DataInicial == null && filtro.DataFinal == null) || (x.DataDoacao.Date >= filtro.DataInicial.Value.Date && x.DataDoacao.Date <= filtro.DataFinal.Value.Date)))
+                                       .OrderByDescending(x => x.DataDoacao).ThenBy(x => x.DataCriacao)
+                                       .AsNoTracking()
+                                       .ToListAsync();
             }
             catch (Exception ex)
             {
