@@ -29,7 +29,7 @@ namespace api_aapcmr.Services
                                                                         .SumAsync(x => x.ValorDoacao);
 
                 _dashBoardDto.ValorTotalMessageiro = await _dbContext.Doacoes
-                                                                        .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Messageiro" &&
+                                                                        .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Mensageiro" &&
                                                                         ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
                                                                             x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
                                                                             x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
@@ -38,7 +38,7 @@ namespace api_aapcmr.Services
                                                                         .SumAsync(x => x.ValorDoacao);
 
                 _dashBoardDto.ValorTotalDesposito = await _dbContext.Doacoes
-                                                                       .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Deposito" &&
+                                                                       .Where(x => x.StatusDoacao == true && x.TipoDeEnvioValor == "Depósito" &&
                                                                        ((filtro.DataInicial == null && filtro.DataFinal == null) || (filtro.DataInicial != null && filtro.DataFinal != null &&
                                                                            x.DataDoacao.Date >= filtro.DataInicial.Value.Date &&
                                                                            x.DataDoacao.Date <= filtro.DataFinal.Value.Date)
