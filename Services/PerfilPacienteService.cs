@@ -94,9 +94,7 @@ namespace api_aapcmr.Services
             {
                 try
                 {
-
-
-                    var _paciente = await _dbContext.Pacientes.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    var _paciente = await _dbContext.Pacientes.Where(x => x.Id == model.PacienteId).FirstOrDefaultAsync();
                     if (_paciente == null)
                         throw new ArgumentException("Paciente não encontrado.");
 
@@ -119,7 +117,6 @@ namespace api_aapcmr.Services
                     await transaction.RollbackAsync();
                     throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
                 }
-
             }
         }
 

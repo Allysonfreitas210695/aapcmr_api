@@ -9,10 +9,10 @@ namespace api_aapcmr.Interfaces
 {
     public interface ITipoGastoService
     {
-        Task<TipoGasto> GetItemMovimentacaoGasto(long id);
-        Task<List<TipoGasto>> GetListMovimentacaoGastos();
-        Task UpdateMovimentacaoGasto(TipoGastoDto model);
-        Task<TipoGasto> InsertMovimentacaoGasto(TipoGastoDto model);
-        Task DeleteMovimentacaoGasto(long id);
+        Task<TipoGasto> GetItemTipoGasto(long id);
+        Task<List<TipoGasto>> GetListTipoGastos();
+        Task UpdateTipoGasto(TipoGastoDto model);
+        Task<TipoGasto> InsertTipoGasto(TipoGastoDto model);
+        Task DeleteTipoGasto(long id);
     }
 }

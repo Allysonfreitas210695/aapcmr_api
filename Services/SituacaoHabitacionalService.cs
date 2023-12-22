@@ -112,7 +112,6 @@ namespace api_aapcmr.Services
                     await transaction.RollbackAsync();
                     throw new ArgumentException(ex?.InnerException?.Message ?? ex.Message);
                 }
-
             }
         }
     }

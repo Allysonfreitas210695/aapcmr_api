@@ -8,21 +8,21 @@ namespace api_aapcmr.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class MovimentacaoGastoController : ControllerBase
+    public class TipoGastoController : ControllerBase
     {
         private readonly ITipoGastoService _service;
-        public MovimentacaoGastoController(ITipoGastoService service)
+        public TipoGastoController(ITipoGastoService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        [Route("{movimentacaoGastoId}")]
-        public async Task<IActionResult> GetListMovimentacaoGastoId(long movimentacaoGastoId)
+        [Route("{tipoGastoId}")]
+        public async Task<IActionResult> GetListTipoGastoId(long tipoGastoId)
         {
             try
             {
-                return Ok(await _service.GetItemMovimentacaoGasto(movimentacaoGastoId));
+                return Ok(await _service.GetItemTipoGasto(tipoGastoId));
             }
             catch (Exception ex)
             {
@@ -32,11 +32,11 @@ namespace api_aapcmr.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetListMovimentacaoGastos()
+        public async Task<IActionResult> GetListTipoGastos()
         {
             try
             {
-                return Ok(await _service.GetListMovimentacaoGastos());
+                return Ok(await _service.GetListTipoGastos());
             }
             catch (Exception ex)
             {
@@ -45,11 +45,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertMovimentacaoGasto([FromBody] TipoGastoDto model)
+        public async Task<IActionResult> InsertTipoGasto([FromBody] TipoGastoDto model)
         {
             try
             {
-                return Ok(await _service.InsertMovimentacaoGasto(model));
+                return Ok(await _service.InsertTipoGasto(model));
             }
             catch (Exception ex)
             {
@@ -58,11 +58,11 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMovimentacaoGasto([FromBody] TipoGastoDto model)
+        public async Task<IActionResult> UpdateTipoGasto([FromBody] TipoGastoDto model)
         {
             try
             {
-                await _service.UpdateMovimentacaoGasto(model);
+                await _service.UpdateTipoGasto(model);
                 return NoContent();
             }
             catch (Exception ex)
@@ -72,12 +72,12 @@ namespace api_aapcmr.Controllers
         }
 
         [HttpDelete]
-        [Route("{movimentacaoGastoId}")]
-        public async Task<IActionResult> DeleteMovimentacaoGasto(long pacienteId)
+        [Route("{TipoGastoId}")]
+        public async Task<IActionResult> DeleteTipoGasto(long pacienteId)
         {
             try
             {
-                await _service.DeleteMovimentacaoGasto(pacienteId);
+                await _service.DeleteTipoGasto(pacienteId);
                 return NoContent();
             }
             catch (Exception ex)

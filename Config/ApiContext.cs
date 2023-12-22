@@ -16,6 +16,7 @@ namespace api_aapcmr.Config
         public DbSet<ComposicaoFamiliar> ComposicaoFamiliares { get; set; }
         public DbSet<Doacao> Doacoes { get; set; }
         public DbSet<PerfilPaciente> PerfilPacientes { get; set; }
+        public DbSet<RelatorioMensal> RelatorioMensais { get; set; }
         
         public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {
@@ -35,6 +36,7 @@ namespace api_aapcmr.Config
             ComposicaoFamiliar.ConfiguraModelo(modelBuilder);
             Doacao.ConfiguraModelo(modelBuilder);
             PerfilPaciente.ConfiguraModelo(modelBuilder);
+            RelatorioMensal.ConfiguraModelo(modelBuilder);
         }
     }
 }

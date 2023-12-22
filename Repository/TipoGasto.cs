@@ -8,6 +8,7 @@ namespace api_aapcmr.Repository
         public string Descricao { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public List<RelatorioMensal> RelatorioMensais { get; set; }
 
         public static void ConfiguraModelo(ModelBuilder modelBuilder)
         {

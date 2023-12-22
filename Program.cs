@@ -63,6 +63,7 @@ builder.Services.AddScoped<IComposicaoFamiliarService, ComposicaoFamiliarService
 builder.Services.AddScoped<IDoacaoService, DoacaoService>();
 builder.Services.AddScoped<IDashBoardService, DashBoardService>();
 builder.Services.AddScoped<IPerfilPacienteService, PerfilPacienteService>();
+builder.Services.AddScoped<IRelatorioMensalService, RelatorioMensalService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);

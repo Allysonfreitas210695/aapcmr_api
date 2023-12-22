@@ -14,7 +14,7 @@ namespace api_aapcmr.Services
             _dbContext = dbContext;
         }
 
-        public async Task<TipoGasto> GetItemMovimentacaoGasto(long id)
+        public async Task<TipoGasto> GetItemTipoGasto(long id)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task<List<TipoGasto>> GetListMovimentacaoGastos()
+        public async Task<List<TipoGasto>> GetListTipoGastos()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task<TipoGasto> InsertMovimentacaoGasto(TipoGastoDto model)
+        public async Task<TipoGasto> InsertTipoGasto(TipoGastoDto model)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -47,18 +47,18 @@ namespace api_aapcmr.Services
                     if (string.IsNullOrEmpty(model.Descricao))
                         throw new ArgumentException("Descrição inválida.");
 
-                    var _movimentacaoGasto = new TipoGasto()
+                    var _TipoGasto = new TipoGasto()
                     {
                         Descricao = model.Descricao,
                         DataAtualizacao = DateTime.Now,
                         DataCriacao = DateTime.Now
                     };
 
-                    await _dbContext.AddAsync(_movimentacaoGasto);
+                    await _dbContext.AddAsync(_TipoGasto);
                     await _dbContext.SaveChangesAsync();
 
                     await transaction.CommitAsync();
-                    return await GetItemMovimentacaoGasto(_movimentacaoGasto.Id);
+                    return await GetItemTipoGasto(_TipoGasto.Id);
                 }
                 catch (Exception ex)
                 {
@@ -68,19 +68,19 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task UpdateMovimentacaoGasto(TipoGastoDto model)
+        public async Task UpdateTipoGasto(TipoGastoDto model)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var _movimentacaoGasto = await _dbContext.TipoGastos.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+                    var _TipoGasto = await _dbContext.TipoGastos.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
 
-                    if (_movimentacaoGasto == null)
+                    if (_TipoGasto == null)
                         throw new ArgumentException("Movimentação não encontrado.");
 
-                    _movimentacaoGasto.Descricao = model.Descricao;
-                    _movimentacaoGasto.DataAtualizacao = DateTime.Now;
+                    _TipoGasto.Descricao = model.Descricao;
+                    _TipoGasto.DataAtualizacao = DateTime.Now;
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
@@ -93,17 +93,17 @@ namespace api_aapcmr.Services
             }
         }
 
-        public async Task DeleteMovimentacaoGasto(long id)
+        public async Task DeleteTipoGasto(long id)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    var _movimentacaoGasto = await _dbContext.TipoGastos.Where(x => x.Id == id).FirstOrDefaultAsync();
-                    if (_movimentacaoGasto == null)
+                    var _TipoGasto = await _dbContext.TipoGastos.Where(x => x.Id == id).FirstOrDefaultAsync();
+                    if (_TipoGasto == null)
                         throw new ArgumentException("Movimentação não encontrado");
 
-                    _dbContext.Remove(_movimentacaoGasto);
+                    _dbContext.Remove(_TipoGasto);
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
