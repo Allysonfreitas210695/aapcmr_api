@@ -20,7 +20,7 @@ namespace api_aapcmr.Controllers
             _service = service;
         }
 
-          [HttpGet]
+        [HttpGet]
         [Route("{perfilPacienteId}")]
         public async Task<IActionResult> GetItemPerfilPaciente(long perfilPacienteId)
         {

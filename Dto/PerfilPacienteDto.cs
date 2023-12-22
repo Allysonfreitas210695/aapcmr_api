@@ -11,7 +11,7 @@ namespace api_aapcmr.Dto
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
         public string Religiao { get; set; }
-        public string Profissiao { get; set; }
+        public string Profissao { get; set; }
         public bool ProgramaGoverno { get; set; }
         public long PacienteId { get; set; }
     }

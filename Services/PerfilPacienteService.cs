@@ -64,7 +64,7 @@ namespace api_aapcmr.Services
                     {
                         NomeMae = model.NomeMae,
                         NomePai = model.NomePai,
-                        Profissiao = model.Profissiao,
+                        Profissao = model.Profissao,
                         ProgramaGoverno = model.ProgramaGoverno,
                         Religiao = model.Religiao,
                         DataAtualizacao = DateTime.Now,
@@ -106,7 +106,7 @@ namespace api_aapcmr.Services
 
                     _perfilPaciente.NomeMae = model.NomeMae;
                     _perfilPaciente.NomePai = model.NomePai;
-                    _perfilPaciente.Profissiao = model.Profissiao;
+                    _perfilPaciente.Profissao = model.Profissao;
                     _perfilPaciente.ProgramaGoverno = model.ProgramaGoverno;
                     _perfilPaciente.Religiao = model.Religiao;
                     _perfilPaciente.DataAtualizacao = DateTime.Now;

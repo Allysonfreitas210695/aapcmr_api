@@ -12,7 +12,7 @@ namespace api_aapcmr.Repository
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
         public string Religiao { get; set; }
-        public string Profissiao { get; set; }
+        public string Profissao { get; set; }
         public bool ProgramaGoverno { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAtualizacao { get; set; }
@@ -28,7 +28,7 @@ namespace api_aapcmr.Repository
                 etd.Property(c => c.NomePai).HasMaxLength(100).IsRequired();
                 etd.Property(c => c.NomeMae).HasMaxLength(15).IsRequired();
                 etd.Property(c => c.Religiao).HasMaxLength(30).IsRequired();
-                etd.Property(c => c.Profissiao).HasMaxLength(40).IsRequired();
+                etd.Property(c => c.Profissao).HasMaxLength(40).IsRequired();
                 etd.Property(c => c.DataCriacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
                 etd.Property(c => c.DataAtualizacao).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
             });
