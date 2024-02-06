@@ -106,6 +106,22 @@ if (app.Environment.IsDevelopment())
                     Path.Combine(Directory.GetCurrentDirectory(), @"Temp")),
         RequestPath = new PathString("/anexos")
     });
+
+    app.UseHttpsRedirection();
+}else {
+     // Configurações para ambiente de produção
+    app.UseHttpsRedirection();
+
+    // Desabilitar a validação do certificado em produção
+    app.Use(async (context, next) =>
+    {
+        if (context.Request.IsHttps)
+        {
+            context.Connection.ClientCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2();
+        }
+
+        await next.Invoke();
+    });
 }
 
 
@@ -117,7 +133,18 @@ app.UseCors(x => x
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
+// Configurar a aceitação de qualquer certificado de cliente
+app.Use(async (context, next) =>
+{
+    if (context.Request.IsHttps)
+    {
+        // Desabilitar a validação do certificado durante o desenvolvimento
+        context.Connection.ClientCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2();
+    }
+
+    await next.Invoke();
+});
+
 
 app.MapControllers();
 
