@@ -13,7 +13,16 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors();
+
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("_myAllowSpecificOrigins", builder => {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -124,30 +133,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-app.UseCors(x => x
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+app.UseCors("_myAllowSpecificOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Configurar a aceitação de qualquer certificado de cliente
-app.Use(async (context, next) =>
-{
-    if (context.Request.IsHttps)
-    {
-        // Desabilitar a validação do certificado durante o desenvolvimento
-        context.Connection.ClientCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2();
-    }
-
-    await next.Invoke();
-});
-
-
 app.MapControllers();
-
 
 var supportedCultures = new[]{
     new CultureInfo("pt-BR")
