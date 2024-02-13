@@ -116,8 +116,7 @@ if (app.Environment.IsDevelopment())
         RequestPath = new PathString("/anexos")
     });
 
-    app.UseHttpsRedirection();
-}else {
+}
      // Configurações para ambiente de produção
     app.UseHttpsRedirection();
 
@@ -131,7 +130,6 @@ if (app.Environment.IsDevelopment())
 
         await next.Invoke();
     });
-}
 
 app.UseCors("_myAllowSpecificOrigins");
 
